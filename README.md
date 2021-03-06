@@ -14,7 +14,7 @@ and competition data downloads.
 - [ngrok](https://ngrok.com/) tunnel authtoken.
 - Google account to access a [Colab](https://colab.research.google.com/notebooks/intro.ipynb) notebook.
 - Local code editors such as VS Code or PyCharm to make the most of coding on Colab.
- 
+
 # Usage
 1. Launch a Colab notebook. Choose a runtime type you prefer.
 
@@ -66,6 +66,12 @@ users:
 
 1. [Remote development over SSH on local VS Code](https://code.visualstudio.com/docs/remote/ssh-tutorial)
 2. [Run SSH terminal on local PyCharm](https://www.jetbrains.com/help/pycharm/running-ssh-terminal.html)
+
+# Release 
+
+Version 0.2.0: Addition of Google Drive mounting.
+
+Version 0.1.3: Addition of Kaggle API installation/authentication and competition data downloading function.
 
 
 # Feedback

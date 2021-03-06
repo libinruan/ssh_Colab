@@ -5,7 +5,7 @@ import os
 import requests
 import urllib.parse
 import time
-from google.colab import files
+from google.colab import files, drive
 
 def connect(LOG_DIR = '/log/fit'):
     print('It may take a few seconds for processing. Please wait.')
@@ -143,6 +143,11 @@ def kaggle(data='tabular-playground-series-mar-2021'):
     os.chdir('/kaggle/input')
     subprocess.call(f'kaggle competitions download -c {data}', shell=True)
     subprocess.call(f'7z x {data}.zip', shell=True)
+
+def google_drive(dir='/gdrive'):
+    drive.mount(dir)
+
+
 
     
 

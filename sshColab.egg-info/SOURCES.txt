@@ -1,8 +1,0 @@
-README.md
-setup.py
-sshColab/__init__.py
-sshColab/code.py
-sshColab.egg-info/PKG-INFO
-sshColab.egg-info/SOURCES.txt
-sshColab.egg-info/dependency_links.txt
-sshColab.egg-info/top_level.txt
