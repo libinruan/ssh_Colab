@@ -143,6 +143,7 @@ def kaggle(data='tabular-playground-series-mar-2021'):
     os.chdir('/kaggle/input')
     subprocess.call(f'kaggle competitions download -c {data}', shell=True)
     subprocess.call(f'7z x {data}.zip', shell=True)
+    print(f'Unzipped {data}.zip to /kaggle/input!')
 
 def google_drive(dir='/gdrive'):
     drive.mount(dir)
