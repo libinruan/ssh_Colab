@@ -1,11 +1,11 @@
 
-# ssh_Colab
-ssh_Colab is a Python module to facilitate remote access to Google Colaboratory
+# ssh-Colab
+ssh-Colab is a Python module to facilitate remote access to Google Colaboratory
 (Colab) through Secure Shell (SSH) connections, secured by a third-party
-software, ngrok. ssh_Colab automates the tedious routine to set up ngrok
+software, ngrok. ssh-Colab automates the tedious routine to set up ngrok
 tunnels needed for TPU runtime applications and services like TensorBoard. It also
-includes the function to automate the routine of Kaggle API installation/authentication
-and download competition data.
+includes the function to facilitate the routine of Kaggle API installation/authentication
+and competition data downloads.
 
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 ![python version](https://img.shields.io/badge/python-3.6%2C3.7%2C3.8-blue?logo=python)
@@ -17,37 +17,38 @@ and download competition data.
 # Usage
 1. Launch a Colab notebook. Choose a runtime type you prefer.
 
-2. Install ssh_Colab. Type and run the following command in a notebook cell:
+2. Install ssh-Colab. Type and run the following command in a notebook cell:
    ```shell
-   !pip install ssh_Colab
+   !pip install ssh-Colab
    ```
    
 3. Initiate the establishment of tunnels:
    ```python
-   import ssh_Colab
-   ssh_Colab.connect()
+   import ssh-Colab
+   ssh-Colab.connect()
    ```
    The default TensorBoard log directory is `/log/fit`. You can reset it by
    passing into `connect()` the new value `LOG_DIR=/new/path/to/log`.
    
 4. Retrieve information that is used for establishing the SSH connection:
    ```python
-   ssh_Colab.info()
+   ssh-Colab.info()
    ```
    If you are using non-TPU runtimes, the setup instruction of TPU resolver is
    ignored.
 
-5. Function `kaggle()` to automate most of the process of Kaggle API installation/authentication and download and unzip competition dataset to folder `/kaggle/input`. The default competition name is "tabular-playground-series-mar-2021."
-
+5. Run function `kaggle()` to automate Kaggle API installation/authentication 
+   and data downloads. The data is unzipped to the destination folder `/kaggle/input`. 
    ```python
-   ssh_Colab.kaggle([data='name-of-competition'])
+   ssh-Colab.kaggle([data='name-of-competition'])
    ```
+   Note that the default competition name is "tabular-playground-series-mar-2021."
 
    
 
 6. To disable ngrok tunnels created, run the command below:
    ```python
-   ssh_Colab.kill()
+   ssh-Colab.kill()
    ```
 
 # Quickstart
