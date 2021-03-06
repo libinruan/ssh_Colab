@@ -2,7 +2,7 @@
 # ssh-Colab
 ssh-Colab is a Python module to facilitate remote access to Google Colaboratory
 (Colab) through Secure Shell (SSH) connections, secured by a third-party
-software, ngrok. ssh-Colab automates the tedious routine to set up ngrok
+software, ngrok. sshColab automates the tedious routine to set up ngrok
 tunnels needed for TPU runtime applications and services like TensorBoard. It also
 includes the function to facilitate the routine of Kaggle API installation/authentication
 and competition data downloads.
@@ -14,25 +14,26 @@ and competition data downloads.
 - [ngrok](https://ngrok.com/) tunnel authtoken.
 - Google account to access a [Colab](https://colab.research.google.com/notebooks/intro.ipynb) notebook.
 - Local code editors such as VS Code or PyCharm to make the most of coding on Colab.
+ 
 # Usage
 1. Launch a Colab notebook. Choose a runtime type you prefer.
 
-2. Install ssh-Colab. Type and run the following command in a notebook cell:
+2. Install sshColab. Type and run the following command in a notebook cell:
    ```shell
-   !pip install ssh-Colab
+   !pip install sshColab
    ```
    
 3. Initiate the establishment of tunnels:
    ```python
-   import ssh-Colab
-   ssh-Colab.connect()
+   import sshColab
+   sshColab.connect()
    ```
    The default TensorBoard log directory is `/log/fit`. You can reset it by
    passing into `connect()` the new value `LOG_DIR=/new/path/to/log`.
    
 4. Retrieve information that is used for establishing the SSH connection:
    ```python
-   ssh-Colab.info()
+   sshColab.info()
    ```
    If you are using non-TPU runtimes, the setup instruction of TPU resolver is
    ignored.
@@ -40,7 +41,7 @@ and competition data downloads.
 5. Run function `kaggle()` to automate Kaggle API installation/authentication 
    and data downloads. The data is unzipped to the destination folder `/kaggle/input`. 
    ```python
-   ssh-Colab.kaggle([data='name-of-competition'])
+   sshColab.kaggle([data='name-of-competition'])
    ```
    Note that the default competition name is "tabular-playground-series-mar-2021."
 
@@ -48,12 +49,12 @@ and competition data downloads.
 
 6. To disable ngrok tunnels created, run the command below:
    ```python
-   ssh-Colab.kill()
+   sshColab.kill()
    ```
 
 # Quickstart
 A quickstart Colab notebook template is provided in the link below. Users can
-find a simple end-to-end application starting from SSH-Colab installation, SSH
+find a simple end-to-end application starting from sshColab installation, SSH
 tunnel creation, to the use of TensorBoard after training a 3-layer MNIST
 convolutional neural network. 
 
