@@ -2,7 +2,7 @@
 # ssh-Colab
 ssh-Colab is a Python module to facilitate remote access to Google Colaboratory
 (Colab) through Secure Shell (SSH) connections, secured by a third-party
-software, ngrok. sshColab automates the tedious routine to set up ngrok
+software, ngrok. ssh-Colab automates the tedious routine to set up ngrok
 tunnels needed for TPU runtime applications and services like TensorBoard. It also
 includes the function to facilitate the routine of Kaggle API installation/authentication
 and competition data downloads.
@@ -43,7 +43,7 @@ and competition data downloads.
    ```python
    sshColab.kaggle([data='name-of-competition'])
    ```
-   Note that the default competition name is "tabular-playground-series-mar-2021."
+   Note that the competition name is "tabular-playground-series-mar-2021" by default.
 
    
 
@@ -58,7 +58,7 @@ find a simple end-to-end application starting from sshColab installation, SSH
 tunnel creation, to the use of TensorBoard after training a 3-layer MNIST
 convolutional neural network. 
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1TKM6Zqk4oY8RrFqGzrM-QEt92iQ0zxwm?usp=sharing) 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1uvLXA5hC8tyMjsA09H3Y5IPi_N54aXbw?usp=sharing) 
 
 What's missed in this quickstart is how to may our way to Colab instances from
 local machines. The reference listed below can be a start point for interested
@@ -67,9 +67,9 @@ users:
 1. [Remote development over SSH on local VS Code](https://code.visualstudio.com/docs/remote/ssh-tutorial)
 2. [Run SSH terminal on local PyCharm](https://www.jetbrains.com/help/pycharm/running-ssh-terminal.html)
 
-# Release 
+# Releases
 
-Version 0.2.0: Addition of Google Drive mounting.
+Version 0.2.0: Addition of Google Drive mounting function.
 
 Version 0.1.3: Addition of Kaggle API installation/authentication and competition data downloading function.
 
