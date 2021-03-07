@@ -1,6 +1,6 @@
 
 # ssh-Colab
-ssh-Colab is a Python module to facilitate remote access to Google Colaboratory (Colab) through Secure Shell (SSH) connections, secured by a third-party software, ngrok. The module automates the tedious routine to set up ngrok tunnels needed for TPU runtime applications and services like TensorBoard. It also provides subroutines for facilitating (1) Kaggle Data API installation, (2) Kaggle competition data downloads, (3) data transfers between Colab and Google Cloud Storage (GCS), and (4) Google Drive mounting.
+ssh-Colab is a Python module to facilitate remote access to Google Colaboratory (Colab) through Secure Shell (SSH) connections, secured by a third-party software, ngrok. The module automates the tedious routine to set up ngrok tunnels needed for TPU runtime applications and services like TensorBoard. It also provides subroutines for (1) Kaggle Data API installation, (2) Kaggle competition data downloads, (3) data transfers between Colab and Google Cloud Storage (GCS), and (4) Google Drive mounting.
 
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 ![python version](https://img.shields.io/badge/python-3.6%2C3.7%2C3.8-blue?logo=python)
