@@ -1,11 +1,6 @@
 
 # ssh-Colab
-ssh-Colab is a Python module to facilitate remote access to Google Colaboratory
-(Colab) through Secure Shell (SSH) connections, secured by a third-party
-software, ngrok. ssh-Colab automates the tedious routine to set up ngrok
-tunnels needed for TPU runtime applications and services like TensorBoard. It also
-includes the function to facilitate the routine of Kaggle API installation/authentication
-and competition data downloads.
+ssh-Colab is a Python module to facilitate remote access to Google Colaboratory (Colab) through Secure Shell (SSH) connections, secured by a third-party software, ngrok. The module automates the tedious routine to set up ngrok tunnels needed for TPU runtime applications and services like TensorBoard. It also provides subroutines for facilitating (1) Kaggle Data API installation, (2) Kaggle competition data downloads, (3) data transfers between Colab and Google Cloud Storage (GCS), and (4) Google Drive mounting.
 
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 ![python version](https://img.shields.io/badge/python-3.6%2C3.7%2C3.8-blue?logo=python)
@@ -18,49 +13,68 @@ and competition data downloads.
 # Usage
 1. Launch a Colab notebook. Choose a runtime type you prefer.
 
-2. Install sshColab. Type and run the following command in a notebook cell:
+2. Install ssh-Colab. Type and run the following command in a notebook cell:
    ```shell
-   !pip install sshColab
+   !pip install ssh-Colab
    ```
    
 3. Initiate the establishment of tunnels:
    ```python
    import sshColab
-   sshColab.connect()
+   sshColab.connect([LOG_DIR='/path/to/log/'])
    ```
-   The default TensorBoard log directory is `/log/fit`. You can reset it by
-   passing into `connect()` the new value `LOG_DIR=/new/path/to/log`.
+   The default TensorBoard log directory is `/log/fit`. 
    
 4. Retrieve information that is used for establishing the SSH connection:
    ```python
    sshColab.info()
    ```
-   If you are using non-TPU runtimes, the setup instruction of TPU resolver is
-   ignored.
-
-5. Run function `kaggle()` to automate Kaggle API installation/authentication 
-   and data downloads. The data is unzipped to the destination folder `/kaggle/input`. 
-   ```python
-   sshColab.kaggle([data='name-of-competition'])
-   ```
-   Note that the competition name is "tabular-playground-series-mar-2021" by default.
-
+   If you are running a non-TPU-enabled notebook, the setup instruction of TPU resolver is skipped.
    
+5. To activate Kaggle API installation/authentication and download competition data, run:
+   
+   ```python
+   sshColab.kaggle([data=<name-of-competition>])
+   ```
+   Note that the competition name is `tabular-playground-series-mar-2021` by default. The data is unzipped to the destination folder `/kaggle/input`. 
 
-6. To disable ngrok tunnels created, run the command below:
+6. To mount a google drive, run:
+
+7. To connect with GCS, initiate the connection:
+   ```python
+   sshColab.GCSconnect()
+   ```
+   To create a GCS Bucket, run:
+   ```python
+   sshColab.create_bucket(<project_id>, <bucket_name>)
+   ```
+   To list blobs in a GCS bucket, run:
+   ```python
+   sshColab.list_blobs(<project_id>, <bucket_name>)
+   ```
+   To upload files from Colab to a GCS Bucket, run:
+   ```python
+   sshColab.upload_to_gcs(<project_id>, <bucket_name>, [file=<local_file> ,ext=<file_extension>])
+   ```
+   To download files from a GCS Bucket to Colab, run:
+   ```python
+   sshColab.download_to_colab(<project_id>, <bucket_name>, [file=<local_file>])
+   ```
+   
+8. To disable ngrok tunnels created, run the command below:
    ```python
    sshColab.kill()
    ```
 
 # Quickstart
-A quickstart Colab notebook template is provided in the link below. Users can
-find a simple end-to-end application starting from sshColab installation, SSH
+A short Colab notebook is provided in the link below. Users can
+find a simple end-to-end application starting from ssh-Colab installation, SSH
 tunnel creation, to the use of TensorBoard after training a 3-layer MNIST
 convolutional neural network. 
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1uvLXA5hC8tyMjsA09H3Y5IPi_N54aXbw?usp=sharing) 
 
-What's missed in this quickstart is how to may our way to Colab instances from
+What's missed in this quick start guide is how to may our way to Colab instances from
 local machines. The reference listed below can be a start point for interested
 users:
 
@@ -69,9 +83,11 @@ users:
 
 # Releases
 
-Version 0.2.0: Addition of Google Drive mounting function.
+version 0.3.0: Addition of functions for communicating with Google Cloud Storage.
 
-Version 0.1.3: Addition of Kaggle API installation/authentication and competition data downloading function.
+version 0.2.0: Addition of Google Drive mounting function.
+
+version 0.1.3: Addition of Kaggle API installation/authentication and competition data downloading function.
 
 
 # Feedback

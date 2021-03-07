@@ -5,10 +5,10 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="ssh-Colab",
-    version="0.2.2",
+    version="0.3.0",
     author="Li-Pin Juan",
     author_email="lipin.juan02@gmail.com",
-    description="Google Colab secure shell connection helper that automates ngrok tunnels creation (for SSH, TPU & TensorBoard) and facilitates Kaggle API data downloads.",
+    description="Google Colab secure shell connection helper that automates ngrok tunnels creation (for SSH, TPU, and TensorBoard) and facilitates the use of Google Cloud Storage, Google Drive, and Kaggle Data API.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/libinruan/sshColab",
@@ -19,5 +19,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
-    keywords=['tpu', 'colab', 'ssh', 'tensorboard', 'kaggle', 'google drive']
+    keywords=['tpu', 'colab', 'ssh', 'tensorboard', 'kaggle', 'google drive', 'gcs', 'google cloud storage', 'secure shell']
 )

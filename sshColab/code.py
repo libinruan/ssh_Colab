@@ -5,7 +5,9 @@ import os
 import requests
 import urllib.parse
 import time
-from google.colab import files, drive
+from google.colab import files, drive, auth
+from google.cloud import storage
+import glob
 
 def connect(LOG_DIR = '/log/fit'):
     print('It may take a few seconds for processing. Please wait.')
@@ -148,6 +150,75 @@ def kaggle(data='tabular-playground-series-mar-2021'):
 def google_drive(dir='/gdrive'):
     drive.mount(dir)
 
+def GCSconnect():
+    print('GCS authentication starts...')
+    auth.authenticate_user()
+
+def _create_bucket(project, bucket_name):
+    storage_client = storage.Client(project=project)
+    bucket = storage_client.bucket(bucket_name)
+    bucket.create(location='US')
+    print(f'Bucket {bucket.name} created.')
+
+def _list_blobs(project, bucket_name):
+    storage_client = storage.Client(project=project)
+    blobs = storage_client.list_blobs(bucket_name)
+    blist = []
+    for blob in blobs:
+        blist.append(blob.name)
+    if not len(blist):
+        print('Empty bucket.')
+    else:
+        print('\n'.join(blist))
+
+def create_bucket(project, bucket_name):
+    try:
+        _create_bucket(project, bucket_name)
+    except Exception as e:
+        print(f"create_bucket('{bucket_name}') fails. Code:", e)
+
+def list_blobs(project, bucket_name):
+    try:
+        _list_blobs(project, bucket_name)
+    except Exception as e:
+        print(f"list_blobs('{bucket_name}') fails. Code:", e)
+
+
+def upload_to_gcs(project, bucket_name, source_directory, file='', ext='*'):
+# Upload file(s) from Google Colaboratory to GCS Bucket.
+# type: {string} project name
+#       {string} bucket name
+#       {string} source directory
+#       {string} (optional) filename: If set, the designated file is uploaded.
+#       {string} (optional) file extension to match, e.g. 'txt', 'jpg'. 
+# rtype: None
+# usage: upload_to_gcs(<bucket-name>,<source-directory>,[file=<file-name>,ext=<extension>])
+    storage_client = storage.Client(project=project)
+    bucket = storage_client.get_bucket(bucket_name)
+    paths = glob.glob(os.path.join(source_directory, file if file else f'*.{ext}'))
+    for path in paths:
+        filename = os.path.join(source_directory, file) if file else path.split('/')[-1] 
+        blob = bucket.blob(filename)
+        blob.upload_from_filename(path)
+        print(f'File {path} uploaded to {os.path.join(bucket_name, filename)}')
+
+def download_to_colab(project, bucket_name, destination_directory, file=''):
+# Download file(s) from Google Cloud Storage Bucket to Colaboratory.
+# type: {string} project name
+#       {string} bucket name
+#       {string} destination directory
+#       {string} (optional) filename: If set, the target file is downloaded.
+# rtype: None
+# usage: download_to_colab(<bucket-name>,<destination-directory>[,file=<filename>])
+    storage_client = storage.Client(project=project)
+    os.makedirs(destination_directory, exist_ok = True)
+    blobs = storage_client.list_blobs(bucket_name)
+    if file:
+        blob.download_to_filename(os.path.join(destination_directory, file))
+    else:
+        for blob in blobs:        
+            path = os.path.join(destination_directory, blob.name)
+            blob.download_to_filename(path)
 
 
     
