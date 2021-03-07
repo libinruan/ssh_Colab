@@ -51,11 +51,11 @@ def connect(LOG_DIR = '/log/fit'):
     tf.tpu.experimental.initialize_tpu_system(resolver)
     strategy = tf.distribute.experimental.TPUStrategy(resolver)""")
         url_tensorboard = _get_ngrok_url('tensorboard')
-        f.write(f'\nTo view tensorboard, visit {url_tensorboard}')  
+        f.write(f'To view tensorboard, visit {url_tensorboard}')  
         f.write('after running the following two commands on the Colab notebook:\n')
-        f.write('    %load_ext tensorboard\n')
+        f.write('    %load_ext tensorboard')
         f.write(f'    %tensorboard --logdir {LOG_DIR}')
-        f.write('\nRun kill() to close all the tunnels.')
+        f.write('\nRun kill() to close all the tunnels.\n')
     print('SSH connection is successfully established. Run info() for connection configuration.')
 
 def info():
@@ -137,7 +137,7 @@ def kaggle(data='tabular-playground-series-mar-2021'):
     subprocess.call('pip install -q --upgrade --force-reinstall --no-deps kaggle kaggle-cli', shell=True)
     subprocess.call('mkdir -p /root/.kaggle', shell=True)
     os.chdir('/root/.kaggle')
-    print('upload your kaggle API token')
+    print('Upload your kaggle API token')
     files.upload()
     subprocess.call('chmod 600 /root/.kaggle/kaggle.json', shell=True)
     subprocess.call('mkdir -p /kaggle/input', shell=True)
@@ -145,20 +145,21 @@ def kaggle(data='tabular-playground-series-mar-2021'):
     os.chdir('/kaggle/input')
     subprocess.call(f'kaggle competitions download -c {data}', shell=True)
     subprocess.call(f'7z x {data}.zip', shell=True)
-    print(f'Unzipped {data}.zip to /kaggle/input!')
+    print(f'\nUnzipped {data}.zip to /kaggle/input.')
 
 def google_drive(dir='/gdrive'):
+    print(f'\nGoogle Drive authentication starts...')
     drive.mount(dir)
 
 def GCSconnect():
-    print('GCS authentication starts...')
+    print('\nGCS authentication starts...')
     auth.authenticate_user()
 
 def _create_bucket(project, bucket_name):
     storage_client = storage.Client(project=project)
     bucket = storage_client.bucket(bucket_name)
     bucket.create(location='US')
-    print(f'Bucket {bucket.name} created.')
+    print(f'bucket {bucket.name} created.')
 
 def _list_blobs(project, bucket_name):
     storage_client = storage.Client(project=project)
@@ -167,7 +168,7 @@ def _list_blobs(project, bucket_name):
     for blob in blobs:
         blist.append(blob.name)
     if not len(blist):
-        print('Empty bucket.')
+        print('empty bucket!')
     else:
         print('\n'.join(blist))
 
@@ -200,7 +201,7 @@ def upload_to_gcs(project, bucket_name, source_directory, file='', ext='*'):
         filename = os.path.join(source_directory, file) if file else path.split('/')[-1] 
         blob = bucket.blob(filename)
         blob.upload_from_filename(path)
-        print(f'File {path} uploaded to {os.path.join(bucket_name, filename)}')
+        print(f'{path} uploaded to {os.path.join(bucket_name, filename)}')
 
 def download_to_colab(project, bucket_name, destination_directory, file=''):
 # Download file(s) from Google Cloud Storage Bucket to Colaboratory.
@@ -215,10 +216,12 @@ def download_to_colab(project, bucket_name, destination_directory, file=''):
     blobs = storage_client.list_blobs(bucket_name)
     if file:
         blob.download_to_filename(os.path.join(destination_directory, file))
+        print('download finished.')
     else:
         for blob in blobs:        
             path = os.path.join(destination_directory, blob.name)
             blob.download_to_filename(path)
+            print(f'{blob.name} downloaded to {path}')
 
 
     
