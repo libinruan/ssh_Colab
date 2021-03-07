@@ -13,10 +13,20 @@ ssh-Colab is a Python module to facilitate remote access to Google Colaboratory 
 # Usage
 1. Launch a Colab notebook. Choose a runtime type you prefer.
 
-2. Install ssh-Colab. Type and run the following command in a notebook cell:
+2. Install ssh-Colab. Type and run the following command in a new notebook cell:
    ```shell
    !pip install ssh-Colab
    ```
+   
+   Another way to install this package is to Git clone its repository to Colab. Run in a new notebook cell:
+   
+   ```shell
+   !git clone https://github.com/libinruan/ssh_Colab.git
+   %cd ssh_Colab
+   !sudo python setup.py install
+   ```
+   
+   
    
 3. Initiate the establishment of tunnels:
    ```python
