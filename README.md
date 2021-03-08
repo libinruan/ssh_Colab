@@ -50,9 +50,9 @@ ssh-Colab is a Python module to facilitate remote access to Google Colaboratory 
 5. To activate Kaggle API installation/authentication and download competition data, run:
    
    ```python
-   sshColab.kaggle([data=<name-of-competition>])
+   sshColab.kaggle([data=<name-of-competition>, output=<output-directory>])
    ```
-   Note that the competition name is `tabular-playground-series-mar-2021` by default. The data is unzipped to the destination folder `/kaggle/input`. 
+   Note that the default competition name is `tabular-playground-series-mar-2021`. The data is unzipped to the destination folder `/kaggle/input` by default. 
 
 6. To mount a google drive, run:
 
@@ -98,6 +98,8 @@ users:
 2. [Run SSH terminal on local PyCharm](https://www.jetbrains.com/help/pycharm/running-ssh-terminal.html)
 
 # Releases
+
+version 0.3.3: Addition of the output argument for function kaggle().
 
 version 0.3.0: Addition of functions for communicating with Google Cloud Storage.
 

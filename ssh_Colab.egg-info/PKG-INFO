@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: ssh-Colab
-Version: 0.3.2
+Version: 0.3.3
 Summary: Google Colab secure shell connection helper that automates ngrok tunnels creation (for SSH, TPU, and TensorBoard) and facilitates the use of Google Cloud Storage, Google Drive, and Kaggle Data API.
 Home-page: https://github.com/libinruan/sshColab
 Author: Li-Pin Juan
@@ -24,6 +24,12 @@ Description:
         2. Install ssh-Colab. Type and run the following command in a new notebook cell:
            ```shell
            !pip install ssh-Colab
+           ```
+           
+           Or you can use this command:
+           
+           ```shell
+           !pip install git+https://github.com/libinruan/ssh_Colab.git#egg=ssh_Colab
            ```
            
            Another way to install this package is to Git clone its repository to Colab. Run in a new notebook cell:
@@ -52,9 +58,9 @@ Description:
         5. To activate Kaggle API installation/authentication and download competition data, run:
            
            ```python
-           sshColab.kaggle([data=<name-of-competition>])
+           sshColab.kaggle([data=<name-of-competition>, output=<output-directory>])
            ```
-           Note that the competition name is `tabular-playground-series-mar-2021` by default. The data is unzipped to the destination folder `/kaggle/input`. 
+           Note that the default competition name is `tabular-playground-series-mar-2021`. The data is unzipped to the destination folder `/kaggle/input` by default. 
         
         6. To mount a google drive, run:
         
@@ -100,6 +106,8 @@ Description:
         2. [Run SSH terminal on local PyCharm](https://www.jetbrains.com/help/pycharm/running-ssh-terminal.html)
         
         # Releases
+        
+        version 0.3.3: Addition of the output argument for function kaggle().
         
         version 0.3.0: Addition of functions for communicating with Google Cloud Storage.
         

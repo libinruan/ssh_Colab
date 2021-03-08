@@ -131,7 +131,7 @@ def _get_ngrok_url(name, local=False):
     else:
         return _get_ngrok_tunnel(name)['public_url']            
 
-def kaggle(data='tabular-playground-series-mar-2021'):        
+def kaggle(data='tabular-playground-series-mar-2021', output='/kaggle/input'):        
     subprocess.call('sudo apt -q update', shell=True)
     subprocess.call('sudo apt -q install unar nano less p7zip', shell=True)
     subprocess.call('pip install -q --upgrade --force-reinstall --no-deps kaggle kaggle-cli', shell=True)
@@ -144,8 +144,8 @@ def kaggle(data='tabular-playground-series-mar-2021'):
     subprocess.call('mkdir -p /kaggle/output', shell=True)
     os.chdir('/kaggle/input')
     subprocess.call(f'kaggle competitions download -c {data}', shell=True)
-    subprocess.call(f'7z x {data}.zip', shell=True)
-    print(f'\nUnzipped {data}.zip to /kaggle/input.')
+    subprocess.call(f'7z x {data}.zip -o {output}', shell=True)
+    print(f'\nUnzipped {data}.zip to {output}.')
 
 def google_drive(dir='/gdrive'):
     print(f'\nGoogle Drive authentication starts...')
