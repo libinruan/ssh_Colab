@@ -5,13 +5,13 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="ssh-Colab",
-    version="0.3.5",
+    version="0.3.6",
     author="Li-Pin Juan",
     author_email="lipin.juan02@gmail.com",
     description="Google Colab secure shell connection helper that automates ngrok tunnels creation (for SSH, TPU, and TensorBoard) and facilitates the use of Google Cloud Storage, Google Drive, and Kaggle Data API.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/libinruan/sshColab",
+    url="https://github.com/libinruan/ssh_Colab",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
