@@ -146,6 +146,8 @@ def kaggle(data='tabular-playground-series-mar-2021', output='/kaggle/input'):
     subprocess.call(f'kaggle competitions download -c {data}', shell=True)
     subprocess.call(f'7z x {data}.zip -o{output}', shell=True)
     print(f'\nUnzipped {data}.zip to {output}.')
+    subprocess.call('mkdir -p /kaggle/working', shell=True)
+    os.chdir('/kaggle/working')
 
 def google_drive(dir='/gdrive'):
     print(f'\nGoogle Drive authentication starts...')
