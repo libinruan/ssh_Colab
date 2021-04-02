@@ -153,9 +153,13 @@ def google_drive(dir='/gdrive'):
     print(f'\nGoogle Drive authentication starts...')
     drive.mount(dir)
 
-def GCSconnect(dir=None):
-    if dir:
-        os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '/content/test-colab.json' 
+def GCSconnect(key_file=None):
+    if key_file:
+        print('Upload your Google Storage API token')
+        os.chdir('/root/.kaggle')
+        files.upload()
+        subprocess.call(f'chmod 600 /root/.kaggle/{key_file}', shell=True)        
+        os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = f'/root/.kaggle/{key_file}' 
         subprocess.call('echo $GOOGLE_APPLICATION_CREDENTIALS', shell=True)
     else:
         print('\nGCS authentication starts...')
