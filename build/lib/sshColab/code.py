@@ -155,8 +155,10 @@ def google_drive(dir='/gdrive'):
 
 def GCSconnect(key_file=None):
     if key_file:
+        if not os.path.exists('/root/.kaggle/'):
+            os.makedirs('/root/.kaggle/')        
         print('Upload your Google Storage API token')
-        os.chdir('/root/.kaggle')
+        os.chdir('/root/.kaggle/')
         files.upload()
         subprocess.call(f'chmod 600 /root/.kaggle/{key_file}', shell=True)        
         os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = f'/root/.kaggle/{key_file}' 
