@@ -153,9 +153,13 @@ def google_drive(dir='/gdrive'):
     print(f'\nGoogle Drive authentication starts...')
     drive.mount(dir)
 
-def GCSconnect():
-    print('\nGCS authentication starts...')
-    auth.authenticate_user()
+def GCSconnect(dir=None):
+    if dir:
+        os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '/content/test-colab.json' 
+        subprocess.call('echo $GOOGLE_APPLICATION_CREDENTIALS', shell=True)
+    else:
+        print('\nGCS authentication starts...')
+        auth.authenticate_user()
 
 def _create_bucket(project, bucket_name):
     storage_client = storage.Client(project=project)
