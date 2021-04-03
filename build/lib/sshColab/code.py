@@ -38,9 +38,9 @@ def connect(LOG_DIR = '/log/fit'):
 
     with open('/content/ngrok-ssh/ngrok-tunnel-info.txt', 'w') as f:
         url, port = urllib.parse.urlparse(_get_ngrok_url('ssh')).netloc.split(':')
-        f.write('Run the command below on local machines to SSH into the Colab instance:\n')
-        f.write(f'    ssh -p {port} root@{url}\n')
-        f.write('The password for login is:\n')
+        # f.write('Run the command below on local machines to SSH into the Colab instance:\n')
+        f.write(f'ssh -p {port} root@{url}')
+        f.write('The password for login is:')
         f.write(f'{root_password}\n')
         if 'COLAB_TPU_ADDR' in os.environ:
           tpu_address = 'grpc://' + os.environ['COLAB_TPU_ADDR']
@@ -51,12 +51,13 @@ def connect(LOG_DIR = '/log/fit'):
     tf.tpu.experimental.initialize_tpu_system(resolver)
     strategy = tf.distribute.experimental.TPUStrategy(resolver)""")
         url_tensorboard = _get_ngrok_url('tensorboard')
-        f.write(f'To view tensorboard, visit {url_tensorboard}')  
-        f.write('after running the following two commands on the Colab notebook:\n')
-        f.write('    %load_ext tensorboard')
-        f.write(f'    %tensorboard --logdir {LOG_DIR}')
-        f.write('\nRun kill() to close all the tunnels.\n')
-    print('SSH connection is successfully established. Run info() for connection configuration.')
+        # f.write(f'To view tensorboard, visit {url_tensorboard}')  
+        f.write(f'Tensorboard: {url_tensorboard}')  
+        # f.write('after running the following two commands on the Colab notebook:\n')
+        # f.write(f'  %load_ext tensorboard')
+        # f.write(f'  %tensorboard --logdir {LOG_DIR}')
+        # f.write('Run kill() to close all the tunnels.\n')
+    # print('SSH connection is successfully established. Run info() for connection configuration.')
 
 def info():
     with open('/content/ngrok-ssh/ngrok-tunnel-info.txt', 'r') as f:
