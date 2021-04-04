@@ -39,7 +39,7 @@ def connect(LOG_DIR = '/log/fit'):
     with open('/content/ngrok-ssh/ngrok-tunnel-info.txt', 'w') as f:
         url, port = urllib.parse.urlparse(_get_ngrok_url('ssh')).netloc.split(':')
         # f.write('Run the command below on local machines to SSH into the Colab instance:\n')
-        f.write(f'ssh -p {port} root@{url}')
+        f.write(f'ssh -p {port} root@{url}\n')
         f.write('The password for login is:')
         f.write(f'{root_password}\n')
         if 'COLAB_TPU_ADDR' in os.environ:
