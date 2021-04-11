@@ -216,7 +216,7 @@ def upload_to_gcs(project, bucket_name, source_directory, file='', ext='*'):
         blob.upload_from_filename(path)
         print(f'{path} uploaded to {os.path.join(bucket_name, filename)}')
 
-def download_to_colab(project, bucket_name, destination_directory, file=''):
+def download_to_colab(project, bucket_name, destination_directory, remote_blob_path='', local_file_name=''):
 # Download file(s) from Google Cloud Storage Bucket to Colaboratory.
 # type: {string} project name
 #       {string} bucket name
@@ -227,8 +227,9 @@ def download_to_colab(project, bucket_name, destination_directory, file=''):
     storage_client = storage.Client(project=project)
     os.makedirs(destination_directory, exist_ok = True)
     blobs = storage_client.list_blobs(bucket_name)
-    if file:
-        blob.download_to_filename(os.path.join(destination_directory, file))
+    if local_file_name & remote_blob_path:
+        blob = bucket.blob(remote_blob_path)
+        blob.download_to_filename(os.path.join(destination_directory, local_file_name))
         print('download finished.')
     else:
         for blob in blobs:        
