@@ -227,7 +227,7 @@ def download_to_colab(project, bucket_name, destination_directory, remote_blob_p
     storage_client = storage.Client(project=project)
     os.makedirs(destination_directory, exist_ok = True)
     blobs = storage_client.list_blobs(bucket_name)
-    if local_file_name & remote_blob_path:
+    if local_file_name and remote_blob_path:
         blob = bucket.blob(remote_blob_path)
         blob.download_to_filename(os.path.join(destination_directory, local_file_name))
         print('download finished.')
