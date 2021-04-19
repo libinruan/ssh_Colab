@@ -198,23 +198,25 @@ def list_blobs(project, bucket_name):
         print(f"list_blobs('{bucket_name}') fails. Code:", e)
 
 
-def upload_to_gcs(project, bucket_name, source_directory, file='', ext='*'):
+def upload_to_gcs(project, bucket_name, destination_blob, source_directory):
 # Upload file(s) from Google Colaboratory to GCS Bucket.
 # type: {string} project name
 #       {string} bucket name
 #       {string} source directory
-#       {string} (optional) filename: If set, the designated file is uploaded.
-#       {string} (optional) file extension to match, e.g. 'txt', 'jpg'. 
 # rtype: None
-# usage: upload_to_gcs(<bucket-name>,<source-directory>,[file=<file-name>,ext=<extension>])
+# usage:
+#   upload_to_gcs("strategic-howl-123", "gcs-station-16", 'temp8/a.pkl', '/a.pkl')
+# note: DON'T put a leading slash in the third argument. 
     storage_client = storage.Client(project=project)
     bucket = storage_client.get_bucket(bucket_name)
-    paths = glob.glob(os.path.join(source_directory, file if file else f'*.{ext}'))
-    for path in paths:
-        filename = os.path.join(source_directory, file) if file else path.split('/')[-1] 
-        blob = bucket.blob(filename)
-        blob.upload_from_filename(path)
-        print(f'{path} uploaded to {os.path.join(bucket_name, filename)}')
+    # paths = glob.glob(os.path.join(source_directory, file if file else f'*.{ext}'))
+    # for path in paths:
+    #     filename = os.path.join(source_directory, file) if file else path.split('/')[-1] 
+    #     blob = bucket.blob(filename)
+    #     blob.upload_from_filename(path)
+    #     print(f'{path} uploaded to {os.path.join(bucket_name, filename)}')
+    blob = bucket.blob(destination_blob)
+    blob.upload_from_filename(source_directory)  
 
 def download_to_colab(project, bucket_name, destination_directory, remote_blob_path='', local_file_name=''):
 # Download file(s) from Google Cloud Storage Bucket to Colaboratory.
@@ -223,20 +225,33 @@ def download_to_colab(project, bucket_name, destination_directory, remote_blob_p
 #       {string} destination directory
 #       {string} (optional) filename: If set, the target file is downloaded.
 # rtype: None
-# usage: download_to_colab(<bucket-name>,<destination-directory>[,file=<filename>])
+# usage:
+#   project = "strategic-howl-123456522" 
+#   bucket_name = "gcs-station-168" 
+#   >>> download_to_colab(project, bucket_name, '/temp8')
+#   >>> download_to_colab(project, bucket_name, destination_directory = '/temp9/fun', remote_blob_path='tps-apr-2021-label/data_fare_age.pkl', local_file_name='data_fare_age.pkl')
     storage_client = storage.Client(project=project)
     os.makedirs(destination_directory, exist_ok = True)
-    blobs = storage_client.list_blobs(bucket_name)
     if local_file_name and remote_blob_path:
+        bucket = storage_client.bucket(bucket_name)
         blob = bucket.blob(remote_blob_path)
         blob.download_to_filename(os.path.join(destination_directory, local_file_name))
         print('download finished.')
     else:
-        for blob in blobs:        
-            path = os.path.join(destination_directory, blob.name)
-            blob.download_to_filename(path)
-            print(f'{blob.name} downloaded to {path}')
-
+        from pathlib import Path
+        os.chdir(destination_directory)
+        blobs = storage_client.list_blobs(bucket_name)
+        count = 1
+        for blob in blobs:
+            if blob.name.endswith("/"): continue # 
+            file_split = blob.name.split("/")
+            directory = "/".join(file_split[0:-1])
+            Path(directory).mkdir(parents=True, exist_ok=True) # (2)
+            blob.download_to_filename(blob.name) 
+            des = os.path.join(destination_directory, directory)
+            if count==1: print(f"Destination: {des}")
+            print(f'{count}. {blob.name.split("/")[-1]:>50s}')
+            count += 1
 
     
 
