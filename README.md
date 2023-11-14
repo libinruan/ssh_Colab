@@ -112,3 +112,4 @@ version 0.1.3: Addition of Kaggle API installation/authentication and competitio
 Comments and suggestions are welcome and appreciated. They can be sent to
 lipin.juan02@gmail.com.
 
+(11.14.2023)
